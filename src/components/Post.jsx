@@ -15,9 +15,25 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
 import { Box } from "@mui/material";
 
-export default function Post({ caption, img, like, comment, view, share }) {
+export default function Post({ user, caption, img, like, comment, view, share, createdAt }) {
   const [likes, setLikes] = useState(like);
   const [isLiked, setIsLiked] = useState(false);
+
+  const formatTimeAgo = (date) => {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    if (seconds < 60) return 'Vừa xong';
+    
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes} phút trước`;
+    
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} giờ trước`;
+    
+    const days = Math.floor(hours / 24);
+    if (days < 30) return `${days} ngày trước`;
+    
+    return new Date(date).toLocaleDateString('vi-VN');
+  };
 
   const handleLike = () => {
     if (isLiked) {
@@ -33,8 +49,8 @@ export default function Post({ caption, img, like, comment, view, share }) {
       <CardHeader
         avatar={
           <Avatar
-            src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="User Avatar"
+            src={user.avatar}
+            alt={user.name}
           />
         }
         action={
@@ -43,21 +59,26 @@ export default function Post({ caption, img, like, comment, view, share }) {
           </IconButton>
         }
         title={
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Typography
               variant="body1"
               color="#f5f5f5"
               sx={{ fontWeight: 600 }}
             >
-              Diogo Forlan
+              {user.name}
             </Typography>
-            <Typography variant="body1" color="#808080">
-              9 giờ trước
-            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Typography variant="caption" color="#808080">
+                {user.username}
+              </Typography>
+              <Typography variant="caption" color="#808080">
+                • {formatTimeAgo(createdAt)}
+              </Typography>
+            </Box>
           </Box>
         }
       />
-      <Box sx={{ paddingLeft: "56px" }}>
+      <Box>
         <CardContent sx={{ paddingTop: 0 }}>
           <Typography
             variant="body2"

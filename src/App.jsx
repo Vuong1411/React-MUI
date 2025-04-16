@@ -1,14 +1,19 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./layout/Navbar";
 import { Home } from "./pages/Home";
-import Test from "./components/Test";
+import { Search } from "./pages/Search";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
-      <Home />
-      <Test />
-    </>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+      </Routes>
+      <ScrollToTop />
+    </BrowserRouter>
   );
 }
 

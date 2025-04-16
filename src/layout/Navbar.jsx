@@ -1,27 +1,36 @@
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import {
   AppBar,
   Toolbar,
-  Typography,
   Box,
   Tab,
   Tabs,
-  IconButton,
   Avatar,
-  Badge
+  Typography,
+  IconButton,
 } from '@mui/material';
 import {
-  Bolt as BoltIcon,
   Home as HomeIcon,
   Person as PersonIcon,
+  Search as SearchIcon,
   Email as EmailIcon,
   Notifications as NotificationsIcon
 } from '@mui/icons-material';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabChange = (_event, newValue) => {
+    const routes = {
+      0: '/',
+      1: '/profile',
+      2: '/search',
+      3: '/messages',
+      4: '/notifications'
+    };
+    navigate(routes[newValue]);
     setActiveTab(newValue);
   };
 
@@ -31,12 +40,15 @@ const Navbar = () => {
       sx={{
         bgcolor: '#16181c',
         minHeight: 60,
-        borderRadius: 0 // Remove corner rounding
+        borderRadius: 0 
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
+        
         {/* Logo Section */}
-        <Box component="img" src='src/assets/Logo.svg'/>
+        <Link to="/" style={{ textDecoration: 'none', color: '#inherit' }}>
+          <Box component="img" src='src/assets/Logo.svg'/>
+        </Link>
 
         {/* Navigation Tabs Section */}
         <Tabs
@@ -71,7 +83,7 @@ const Navbar = () => {
             }}
           />
           <Tab
-            icon={<EmailIcon />}
+            icon={<SearchIcon />}
             sx={{
               color: activeTab === 2 ? '#fff' : '#aaa',
               '&.Mui-selected': { color: '#6ec207' },
@@ -79,9 +91,17 @@ const Navbar = () => {
             }}
           />
           <Tab
+            icon={<EmailIcon />}
+            sx={{
+              color: activeTab === 3 ? '#fff' : '#aaa',
+              '&.Mui-selected': { color: '#6ec207' },
+              minWidth: 100
+            }}
+          />
+          <Tab
             icon={<NotificationsIcon />}
             sx={{
-              color: activeTab === 2 ? '#fff' : '#aaa',
+              color: activeTab === 4 ? '#fff' : '#aaa',
               '&.Mui-selected': { color: '#6ec207' },
               minWidth: 100
             }}
@@ -92,9 +112,9 @@ const Navbar = () => {
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
             <Typography variant="body1" sx={{ mr: 1, display: { xs: 'none', sm: 'block' } }}>
-              Diogo Forlan
+              Trần Duy Vương
             </Typography>
-            <Avatar alt="Diogo Forlan" src="/avatar.jpg" />
+            <Avatar alt="Trần Duy Vương" src="/avatar.jpg" />
           </Box>
         </Box>
       </Toolbar>

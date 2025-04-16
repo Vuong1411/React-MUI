@@ -11,29 +11,7 @@ import {
   ListItemSecondaryAction,
 } from "@mui/material";
 import "../styles/Suggestions.css";
-
-// Mock data for suggestions
-const suggestedUsers = [
-  {
-    id: 1,
-    name: "John Doe",
-    username: "@johndoe",
-    avatar: "https://mui.com/static/images/avatar/1.jpg",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    username: "@janesmith",
-    avatar: "https://mui.com/static/images/avatar/2.jpg",
-  },
-  {
-    id: 3,
-    name: "Mike Johnson",
-    username: "@mikejohnson",
-    avatar: "https://mui.com/static/images/avatar/3.jpg",
-  },
-  // Add more users as needed
-];
+import { Users } from "../data/users"; 
 
 const Suggestions = () => {
   const [following, setFollowing] = React.useState({});
@@ -52,7 +30,8 @@ const Suggestions = () => {
         padding: "16px",
         backgroundColor: "#16181c",
         borderRadius: "25px",
-        position: "fixed",
+        position: 'sticky',
+        top: 80,
       }}
     >
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -77,8 +56,8 @@ const Suggestions = () => {
         </Typography>
       </Box>
 
-      <List sx={{ width: "300px" }}>
-        {suggestedUsers.map((user) => (
+      <List>
+        {Users.map((user) => (
           <ListItem
             key={user.id}
             sx={{

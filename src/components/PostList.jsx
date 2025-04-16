@@ -12,36 +12,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import Post from "./Post";
-
-const postItem = [
-  {
-    caption:
-      "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like.",
-    img: "https://images.unsplash.com/photo-1742268350523-70a032f3520d?q=80&w=1968&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    like: 184,
-    comment: 10,
-    view: 2.2,
-    share: 24,
-  },
-  {
-    caption:
-      "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like.",
-    img: "https://images.unsplash.com/photo-1742412615574-ce65e63598d8?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=m3wxmja3fdb8mhxwag90by1wywdlfhx8fgvufdb8fhx8fa%3d%3d",
-    like: 100,
-    comment: 5,
-    view: 1.2,
-    share: 14,
-  },
-  {
-    caption:
-      "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. add 1 cup of frozen peas along with the mussels, if you like.",
-    img: "https://images.unsplash.com/photo-1742435456486-3a0059c05e38?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    like: 20,
-    comment: 1,
-    view: 1,
-    share: 10,
-  },
-];
+import { PostItems } from "../data/posts";
 
 export const PostList = () => {
   const [open, setOpen] = useState(false);
@@ -76,33 +47,38 @@ export const PostList = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
+            gap: "16px",
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "16px", width: "100%", }}>
             <Avatar
-              src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="User Avatar"
+              src="/avatar.jpg"
+              alt="Trần Duy Vương"
             />
-            <Typography
-              variant="body1"
-              color="#808080"
-              fontWeight={"600"}
+            <Box
               onClick={handleClickOpen}
+              sx={{
+                flex: 1,
+                padding: "12px 16px",
+                backgroundColor: "rgba(255, 255, 255, 0.03)",
+                borderRadius: "25px",
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.05)",
+                },
+              }}
             >
-              Bắt đầu nimbus...
-            </Typography>
+              <Typography
+                variant="body1"
+                color="#808080"
+                sx={{
+                  fontWeight: 500,
+                }}
+              >
+                Bạn đang nghĩ gì thế...
+              </Typography>
+            </Box>
           </Box>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#6EC207",
-              color: "#f5f5f5",
-              borderRadius: "25px",
-            }}
-          >
-            Đăng
-          </Button>
         </Box>
       </Box>
 
@@ -148,19 +124,19 @@ export const PostList = () => {
         </Box>
       </Dialog>
 
-      {postItem.map((item, index) => {
-        return (
-          <Post
-            key={index}
-            caption={item.caption}
-            img={item.img}
-            like={item.like}
-            comment={item.comment}
-            view={item.view}
-            share={item.share}
-          />
-        );
-      })}
+      {PostItems.map((post) => (
+        <Post
+          key={post.id}
+          user={post.user}
+          caption={post.caption}
+          img={post.img}
+          like={post.like}
+          comment={post.comment}
+          view={post.view}
+          share={post.share}
+          createdAt={post.createdAt}
+        />
+      ))}
     </Box>
   );
 };
